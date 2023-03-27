@@ -1,7 +1,7 @@
 /**
   type used as a mask for better interpretation of the ResultHandler class type
   @param T Is defined using Ok()
-  @param E Is defined using Error()
+  @param E Is defined using Err()
  */
 export type Result<T, E> = ResultHandler<T, null> | ResultHandler<null, E>;
 
