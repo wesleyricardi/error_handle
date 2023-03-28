@@ -78,7 +78,9 @@ Returns the successful outcome value, or a default value if the Result object re
 @param error  A callback that takes the error as a parameter.
 @returns returns success or callback execution with parameter error.
 */
-  get_success_or_run<R>(callback: (error: E) => R): NonNullable<T> | R {
+  get_success_or_run<R>(
+    callback: (error: NonNullable<E>) => R
+  ): NonNullable<T> | R {
     if (this.success) return this.success!;
     else return callback(this.error!);
   }
@@ -109,7 +111,9 @@ Returns the successful outcome value, or a default value if the Result object re
 @param success  A callback that takes the success as a parameter.
 @returns returns error or callback execution with parameter success.
 */
-  get_failure_or_run<R>(callback: (success: T) => R): NonNullable<E> | R {
+  get_failure_or_run<R>(
+    callback: (success: NonNullable<T>) => R
+  ): NonNullable<E> | R {
     if (this.error) return this.error!;
     else return callback(this.success!);
   }
