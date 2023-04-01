@@ -16,10 +16,10 @@ The ResultHandler library provides a way to represent the outcome of an operatio
 
 - Using the function create and handle with error can be used like this:
   function exemple(email: string): Result<string, string> {
-  const { error, get_success_or_exit } = sendEmail(email);
+  const { error, success_or_throw } = sendEmail(email);
 
   if (error) return Err(error);
-  const success = get_success_or_exit();
+  const success = success_or_throw;
 
   console.log(success);
 
@@ -29,10 +29,10 @@ The ResultHandler library provides a way to represent the outcome of an operatio
 or
 
 function exemple2(email: string): string {
-const { error, get_success_or_exit } = sendEmail(email);
+const { error, success_or_throw } = sendEmail(email);
 
 if (error) throw new Error(error);
-const success = get_success_or_exit();
+const success = success_or_throw;
 
 console.log(success);
 
@@ -47,8 +47,8 @@ If for exemple you have const result = sendEmail(email), you can use the fallow 
 
 # Successful outcome
 
-- To get the successful outcome value, use the get_success_or_exit method. This method will throw an error if the Result object represents a failed outcome.
-  const successValue = result.get_success_or_exit();
+- To get the successful outcome value, use the success_or_throw method. This method will throw an error if the Result object represents a failed outcome.
+  const successValue = result.success_or_throw;
 
 - Alternatively, you can use the get_success_or method to return a default value if the Result object represents a failed outcome:
   const successValue = result.get_success_or("default value");
@@ -60,8 +60,8 @@ If for exemple you have const result = sendEmail(email), you can use the fallow 
 
 # Error outcome
 
-- To get the error value, use the get_failure_or_exit method. This method will throw an error if the Result object represents a successful outcome.
-  const errorValue = result.get_failure_or_exit();
+- To get the error value, use the get_failure_or_throw method. This method will throw an error if the Result object represents a successful outcome.
+  const errorValue = result.get_failure_or_throw;
 
 - Alternatively, you can use the get_failure_or method to return a default value if the Result object represents a successful outcome:
   const errorValue = result.get_failure_or("default value");

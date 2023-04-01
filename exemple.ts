@@ -9,10 +9,10 @@ function sendEmail(email: string): Result<boolean, string> {
 }
 
 function exemple(email: string): Result<string, string> {
-  const { error, get_success_or_exit } = sendEmail(email);
+  const { error, success_or_throw } = sendEmail(email);
 
   if (error) return Err(error);
-  const success = get_success_or_exit();
+  const success = success_or_throw;
 
   console.log(success);
 
@@ -20,10 +20,10 @@ function exemple(email: string): Result<string, string> {
 }
 
 function exemple2(email: string): string {
-  const { error, get_success_or_exit } = sendEmail(email);
+  const { error, success_or_throw } = sendEmail(email);
 
   if (error) throw new Error(error);
-  const success = get_success_or_exit();
+  const success = success_or_throw;
 
   console.log(success);
 

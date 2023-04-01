@@ -46,11 +46,11 @@ or the onError callback if there is an error.
 @returns Returns the result of either the onSuccess or onError callback, depending on whether the computation was successful or not. 
 */
   resolve<R, X>(
-    onSuccess: (success: NonNullable<T>) => NonNullable<R>,
-    onError: (error: NonNullable<E>) => NonNullable<X>
+    onSuccess: (success: NonNullable<T>) => R,
+    onError: (error: NonNullable<E>) => X
   ) {
-    if (this.success === null) return onError(this.get_failure_or_exit());
-    return onSuccess(this.get_success_or_exit());
+    if (this.success === null) return onError(this.error!);
+    return onSuccess(this.success!);
   }
 
   /**
@@ -58,8 +58,8 @@ or the onError callback if there is an error.
   @throws If the Result object represents a failed outcome.
   @returns The successful outcome value.
   */
-  get_success_or_exit(): NonNullable<T> {
-    if (this.success === null) process.exit(1);
+  get success_or_throw(): NonNullable<T> {
+    if (!this.success) throw new Error("No success value");
     return this.success!;
   }
 
@@ -90,9 +90,9 @@ Returns the error value.
 @throws If the Result object represents a successful outcome.
 @returns The error value.
 */
-  get_failure_or_exit(): NonNullable<E> {
-    if (this.error) return this.error!;
-    else process.exit(1);
+  get failure_or_throw(): NonNullable<E> {
+    if (!this.error) throw new Error("No error value");
+    return this.error!;
   }
 
   /**
